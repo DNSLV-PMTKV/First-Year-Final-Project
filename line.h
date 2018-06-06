@@ -10,7 +10,7 @@ public:
     line();
     line(vector, point);
     line(point, point);
-    virtual ~line()
+    virtual ~line();
     line(const line&);
     line&operator=(const line&);
 
@@ -22,8 +22,13 @@ public:
 
     bool operator&&(const line&); //presichashti pravi
 
+
+    virtual std::ostream& ins(std::ostream&) const;
+    friend std::ostream &operator<<(std::ostream &lhs, const line &obj);
+
 private:
     double x1, x2, y1, y2, z1, z2;
+    point a, b;
 
 };
 

@@ -1,52 +1,69 @@
 #include <cmath>
 #include "line.h"
-line::line():x1(0),x2(0),y1(0),y2(0),z1(0),z2(0) {}
-line::line(vector v, point b)
-    : x1(b.getX()), y1(b.getY()), z1(b.getZ())
+//line::line():x1(0),x2(0),y1(0),y2(0),z1(0),z2(0) {}
+line::line(): a(point()),b(point()){}
+//line::line(vector v, point b)
+//    : x1(b.getX()), y1(b.getY()), z1(b.getZ())
+//{
+//    std::cout << "Enter vector params:\n";
+//    std::cin >> v;
+//    x2 = v.getX();
+//    y2 = v.getY();
+//    z2 = v.getZ();
+//}
+line::line(vector v, point A)
 {
-    std::cout << "Enter vector params:\n";
-    std::cin >> v;
-    x2 = v.getX();
-    y2 = v.getY();
-    z2 = v.getZ();
+    a.setX(v.getX());
+    a.setY(v.getY());
+    a.setZ(v.getZ());
+    b.setX(A.getX());
+    b.setY(A.getY());
+    b.setZ(A.getZ());
 }
-line::line(point a, point b)
-    : x1(a.getX()), y1(a.getY()), z1(a.getZ())
+//line::line(point a, point b)
+//    : x1(a.getX()), y1(a.getY()), z1(a.getZ())
+//{
+//    vector v(a, b);
+//    x2 = v.getX();
+//    y2 = v.getY();
+//    z2 = v.getZ();
+//}
+line::line(point A, point B)
 {
-    vector v(a, b);
-    x2 = v.getX();
-    y2 = v.getY();
-    z2 = v.getZ();
+    a.setX(A.getX());
+    a.setY(A.getY());
+    a.setZ(A.getZ());
+    b.setX(B.getX());
+    b.setY(B.getY());
+    b.setZ(B.getZ());
 }
 line::~line() {}
 line::line(const line & rhs)
 {
-    x1 = rhs.x1;
-    x2 = rhs.x2;
-    y1 = rhs.y1;
-    y2 = rhs.y2;
-    z1 = rhs.z1;
-    z2 = rhs.z2;
+    a = rhs.a;
+    b = rhs.b;
 }
 line& line::operator=(const line & rhs)
 {
     if(this!=&rhs)
     {
-        x1 = rhs.x1;
-        x2 = rhs.x2;
-        y1 = rhs.y1;
-        y2 = rhs.y2;
-        z1 = rhs.z1;
-        z2 = rhs.z2;
+        a = rhs.a;
+        b = rhs.b;
     }
     return *this;
 }
 vector line::normalVector(const line &rhs)
 {
-    return vector(x2-x1,y2-y1,z2-z1);
+    double X = b.getX() - a.getX();
+    double Y = b.getY() - a.getY();
+    double Z = b.getZ() - a.getZ();
+    return vector(X,Y,Z);
 }
 double line::angle(const line & a, const line &b)
 {
+    double X = b.getX() - a.getX();
+    double Y = b.getY() - a.getY();
+    double Z = b.getZ() - a.getZ();
     vector v1(a.x2 - a.x1, a.y2 - a.y1, a.z2 - a.z1);
     vector v2(b.x2 - b.x1, b.y2 - b.y1, b.z2 - b.z1);
     double dot = v1 * v2;
@@ -82,3 +99,12 @@ bool line::operator||(const line&rhs)
 }
 
 
+std::ostream& line::ins(std::ostream &out) const
+{
+    std::cout << "First point: \n" << a;
+    std::cout << "Second point: \n" << b;
+}
+std::ostream& operator << (std::ostream& lhs, const line & rhs)
+{
+    return rhs.ins(lhs);
+}

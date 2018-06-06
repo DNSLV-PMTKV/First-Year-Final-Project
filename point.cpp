@@ -33,7 +33,7 @@ bool point::operator==(const point &rhs)
 }
 std::ostream& point::ins(std::ostream &out) const
 {
-    element::ins(out);
+    //element::ins(out);
     return out << "Point" << "\nX: " << x <<"\nY: " << y << "\nZ: " << z << "\n";
 }
 std::ostream& operator << (std::ostream& lhs, const point & rhs)
