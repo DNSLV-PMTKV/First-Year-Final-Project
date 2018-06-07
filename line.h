@@ -7,7 +7,7 @@
 class line : public vector
 {
 public:
-    line();
+    line() = default;
     line(vector, point);
     line(point, point);
     virtual ~line();
@@ -15,7 +15,7 @@ public:
     line&operator=(const line&);
 
     vector normalVector(const line&);
-    double angle(const line&, const line&);
+    double angle(const line&);
 
     bool operator+(const point&); //tochka v/y prava
     bool operator||(const line&); // usporedni pravi
@@ -24,7 +24,7 @@ public:
 
 
     virtual std::ostream& ins(std::ostream&) const;
-    friend std::ostream &operator<<(std::ostream &lhs, const line &obj);
+    std::ostream &operator<<(std::ostream &lhs, const line &obj);
 
 private:
     double x1, x2, y1, y2, z1, z2;

@@ -32,11 +32,17 @@ int main()
         }
         else if(choice == 3)
         {
-            point a,b;
-            cin >> a >> b;
+            point a(1,2,3);
+            point b(2,3,4);
+            point test(1,2,3);
+            point abrg(5,4,9);
+            line i(test, abrg);
             line l(a, b);
-            cout << l;
+            cout << i.operator||(l);
+            cout << "Would you like to choose another object?[y/n]";
+            cin>>cont;
         }
+        system("CLS");
     }while(cont != 'n');
     return 0;
 }

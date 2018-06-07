@@ -7,7 +7,7 @@
 class vector: public point {
 public:
     vector();
-    vector(double, double, double);
+    vector(double, double, double,double, double, double);
     vector(point, point);
     virtual ~vector();
     vector(const vector&);

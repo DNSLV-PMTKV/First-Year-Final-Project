@@ -1,8 +1,9 @@
 #include "vector.h"
 #include <cmath>
 #include <iostream>
-vector::vector():x(0),y(0),z(0) {}
-vector::vector(double a, double b, double c): x(a),y(b),z(c){}
+//TO DO: Gotta fix my brilliant code. constructors
+vector::vector():point(),x(0),y(0),z(0) {}
+vector::vector(double A, double B, double C, double a, double b, double c): point(A,B,C),x(a),y(b),z(c){}
 vector::vector(point A, point B)
 {
     x = B.getX() - A.getX();
@@ -20,6 +21,7 @@ vector& vector::operator=(const vector &rhs)
 {
     if(this!=&rhs)
     {
+        point::operator=(rhs);
         x = rhs.x;
         y = rhs.y;
         z = rhs.z;
@@ -64,28 +66,23 @@ double vector::length() const
 }
 bool vector::zeroV() const
 {
-    if((x && y && z) == 0)
-        return true;
-    return false;
+    return x == y && y == z && z == 0;
 }
 bool vector::parallel(const vector &rhs) const
 {
     double tmpX = x - rhs.x;
     double tmpY = y - rhs.y;
     double tmpZ = z - rhs.z;
-    if (tmpX == tmpY && tmpY == tmpZ) return true;
-    else return false;
+    return (tmpX == tmpY && tmpY == tmpZ);
 }
 bool vector::perpendicular(const vector & rhs) const
 {
-    if(x*rhs.x + y*rhs.y + z*rhs.z == 0) return true;
-    return false;
+    return (x*rhs.x + y*rhs.y + z*rhs.z == 0);
 }
 
 std::ostream& vector::ins(std::ostream &out) const
 {
-    element::ins(out);
-    return out << "Vector"<< "\nX: " << x <<"\nY: " << y << "\nZ: " << z << "\n";
+    return out << "Vector"<< " X: " << x <<" Y: " << y << " Z: " << z << "\n";
 }
 std::ostream& operator << (std::ostream& lhs, const vector & rhs)
 {

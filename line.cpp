@@ -59,43 +59,44 @@ vector line::normalVector(const line &rhs)
     double Z = b.getZ() - a.getZ();
     return vector(X,Y,Z);
 }
-double line::angle(const line & a, const line &b)
+double line::angle(const line & rhs)
 {
-    double X = b.getX() - a.getX();
-    double Y = b.getY() - a.getY();
-    double Z = b.getZ() - a.getZ();
-    vector v1(a.x2 - a.x1, a.y2 - a.y1, a.z2 - a.z1);
-    vector v2(b.x2 - b.x1, b.y2 - b.y1, b.z2 - b.z1);
+    vector v1(a, b);
+    vector v2(rhs.a, rhs.b);
     double dot = v1 * v2;
-    double a_x = a.x1 - a.x2;
-    double a_y = a.y1 - a.y2;
-    double a_z = a.z1 - a.z2;
-    double a_dist = sqrt(a_x*a_x + a_y*a_y + a_z*a_z);
-    double b_x = b.x1 - b.x2;
-    double b_y = b.y1 - b.y2;
-    double b_z = b.z1 - b.z2;
-    double b_dist = sqrt(b_x*b_x + b_y*b_y + b_z*b_z);
+    double a_x = v1.getX() * v1.getX();
+    double a_y = v1.getY() * v1.getY();
+    double a_z = v1.getZ() * v1.getZ();
+    double a_dist = sqrt(a_x+ a_y + a_z);
+    double b_x = v2.getX() * v2.getX();
+    double b_y = v2.getY() * v2.getY();
+    double b_z = v2.getZ() * v2.getZ();
+    double b_dist = sqrt(b_x + b_y + b_z);
     double angle = dot/(a_dist*b_dist);
-    angle = cos(angle);
-
+    angle = acos(angle);
     return angle;
 }
 bool line::operator+(const point &rhs)
 {
-    double one = (rhs.getX() - x1) / (x2 - x1);
-    double two = (rhs.getY() - y1) / (y2 - y1);
-    double three = (rhs.getZ() - z1) / (z2 - z1);
-    return one == two == three;
+    double one = (rhs.getX() - a.getX()) / (b.getX() - a.getX());
+    double two = (rhs.getY() - a.getY()) / (b.getY() - a.getY());
+    double three = (rhs.getZ() - a.getZ()) / (b.getZ() - a.getZ());
+    std::cout << one << std::endl << two << std::endl << three;
+    return (one == two && two == three);
 }
 bool line::operator||(const line&rhs)
 {
-    double tmp_x1 = rhs.x1 - x1;
-    double tmp_x2 = rhs.x2 - x2;
-    double tmp_y1 = rhs.y1 - y1;
-    double tmp_y2 = rhs.y2 - y2;
-    double tmp_z1 = rhs.z1 - z1;
-    double tmp_z2 = rhs.z2 - z2;
-    return tmp_x1 == tmp_x2 == tmp_y1 == tmp_y2 == tmp_z1 == tmp_z2;
+    double tmp_x1 = rhs.a.getX() - a.getX();
+    double tmp_x2 = rhs.b.getX() - b.getX();
+    std::cout << rhs.b.getX() << std::endl;
+    std::cout << b.getX() << std::endl;
+    std::cout << tmp_x2 << std::endl;
+    double slope = b.
+//    double tmp_y1 = rhs.y1 - y1;
+//    double tmp_y2 = rhs.y2 - y2;
+//    double tmp_z1 = rhs.z1 - z1;
+//    double tmp_z2 = rhs.z2 - z2;
+//    return tmp_x1 == tmp_x2 == tmp_y1 == tmp_y2 == tmp_z1 == tmp_z2;
 }
 
 
