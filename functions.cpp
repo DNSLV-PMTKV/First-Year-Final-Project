@@ -14,6 +14,7 @@ int POINT()
     cin >> p1;
     do{
         cout <<"Chose an option: \n";
+        cout <<"0. Print point parameters.\n";
         cout <<"1. Check if two point are equal.\n";
         cin >> choice;
         if(choice == 1)
@@ -21,6 +22,12 @@ int POINT()
             point p2;
             cin >> p2;
             (p1 == p2) ? cout <<"Equal\n": cout<<"Not equal.\n";
+            cout << "Would you like to choose another point option?[y/n] ";
+            cin>>cont;
+        }
+        else if(choice == 0)
+        {
+            cout << p1 << endl;
             cout << "Would you like to choose another point option?[y/n] ";
             cin>>cont;
         }
@@ -54,9 +61,16 @@ int VECTOR()
         cin >> v2;
         v = v2;
     }
+    else
+    {
+        system("CLS");
+        cout << "Wrong input! Try again." << endl;
+        VECTOR();
+    }
     do
     {
         cout <<"Chose an option: \n";
+        cout <<"0. Print vector parameters\n";
         cout <<"1. Get length\n";
         cout <<"2. Get direction\n";
         cout <<"3. Projection over another vector\n";
@@ -148,6 +162,16 @@ int VECTOR()
             cout << "Would you like to choose another vector option?[y/n] ";
             cin>>cont;
         }
+        else if(choice2 == 0)
+        {
+            cout << v << endl;
+            cout << "Would you like to choose another vector option?[y/n] ";
+            cin>>cont;
+        }
         else cout << "Wrong input. Try again.\n";
     }while(cont != 'n');
+}
+int LINE()
+{
+
 }

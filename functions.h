@@ -7,5 +7,6 @@
 
 int POINT();
 int VECTOR();
+int LINE();
 
 #endif //PROJECT_VECTOR_FUNCTIONS_H
