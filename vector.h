@@ -7,7 +7,7 @@
 class vector: public point {
 public:
     vector();
-    vector(double, double, double,double, double, double);
+    vector(double, double, double);
     vector(point, point);
     virtual ~vector();
     vector(const vector&);
@@ -33,13 +33,14 @@ public:
     bool perpendicular(const vector&) const;
 
     virtual std::ostream& ins(std::ostream&) const;
-    friend std::ostream &operator<<(std::ostream &lhs, const vector &obj);
+    friend std::ostream &operator<<(std::ostream &, const vector &);
 
-    std::istream&ext(std::istream&);
+    virtual std::istream&ext(std::istream&);
     friend std::istream& operator>>(std::istream&,vector&);
 
 private:
-    double x,y,z;
+    point A;
+    //double x,y,z;
 
 };
 

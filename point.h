@@ -25,7 +25,7 @@ public:
     virtual std::ostream& ins(std::ostream&) const;
     friend std::ostream& operator<<(std::ostream &, const point &);
 
-    std::istream&ext(std::istream&);
+    virtual std::istream&ext(std::istream&);
     friend std::istream& operator>>(std::istream&,point&);
 private:
     double x, y, z;

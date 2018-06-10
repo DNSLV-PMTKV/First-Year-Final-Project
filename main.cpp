@@ -3,7 +3,7 @@
 #include "element.h"
 #include "point.h"
 #include "vector.h"
-#include "line.h"
+//#include "line.h"
 using namespace std;
 
 
@@ -26,11 +26,14 @@ int main()
         }
         else if (choice == 2)
         {
-            VECTOR();
+            //VECTOR();
+            vector v1;
+            cin >> v1;
+            cout << v1;
             cout << "Would you like to choose another object?[y/n]";
             cin>>cont;
         }
-        else if(choice == 3)
+        /*else if(choice == 3)
         {
             point a(1,2,3);
             point b(2,3,4);
@@ -41,7 +44,7 @@ int main()
             cout << i.operator||(l);
             cout << "Would you like to choose another object?[y/n]";
             cin>>cont;
-        }
+        }*/
         system("CLS");
     }while(cont != 'n');
     return 0;

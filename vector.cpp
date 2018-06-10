@@ -1,88 +1,83 @@
 #include "vector.h"
 #include <cmath>
 #include <iostream>
-//TO DO: Gotta fix my brilliant code. constructors
-vector::vector():point(),x(0),y(0),z(0) {}
-vector::vector(double A, double B, double C, double a, double b, double c): point(A,B,C),x(a),y(b),z(c){}
-vector::vector(point A, point B)
-{
-    x = B.getX() - A.getX();
-    y = B.getY() - A.getY();
-    z = B.getZ() - A.getZ();
-}
+vector::vector():A(point(0,0,0)){}
+vector::vector(double x, double y, double z): A(point(x,y,z)){}
+vector::vector(point a, point b)
+: A(point(b.getX() - a.getX(), b.getY() - a.getY(), b.getZ() - a.getZ())) {}
 vector::~vector() {}
 vector::vector(const vector & rhs)
 {
-    x = rhs.x;
-    y = rhs.y;
-    z = rhs.z;
+    A.setX(rhs.A.getX());
+    A.setY(rhs.A.getY());
+    A.setZ(rhs.A.getZ());
 }
 vector& vector::operator=(const vector &rhs)
 {
     if(this!=&rhs)
     {
         point::operator=(rhs);
-        x = rhs.x;
-        y = rhs.y;
-        z = rhs.z;
+        A.setX(rhs.A.getX());
+        A.setY(rhs.A.getY());
+        A.setZ(rhs.A.getZ());
     }
     return *this;
 }
-void vector::setX(double a) { x = a; }
-void vector::setY(double a) { y = a; }
-void vector::setZ(double a) { z = a; }
-double vector::getX() const {return x;}
-double vector::getY() const {return y;}
-double vector::getZ() const {return z;}
-
+void vector::setX(double a) { A.setX(a); }
+void vector::setY(double a) { A.setY(a); }
+void vector::setZ(double a) { A.setZ(a); }
+double vector::getX() const {return A.getX();}
+double vector::getY() const {return A.getY();}
+double vector::getZ() const {return A.getZ();}
 vector vector::operator+(const vector & rhs)
 {
-    vector tmp(x + rhs.x, y + rhs.y, z + rhs.z);
+    vector tmp(A.getX() + rhs.A.getX(), A.getY() + rhs.A.getY(), A.getZ() + rhs.A.getZ());
     return tmp;
 }
 vector vector::operator-(const vector &rhs)
 {
-    vector tmp(x - rhs.x, y - rhs.y, z - rhs.z);
+    vector tmp(A.getX() - rhs.A.getX(), A.getY() - rhs.A.getY(), A.getZ() - rhs.A.getZ());
     return tmp;
 }
-vector vector::operator*(double rhs)
+vector vector::operator*(double num)
 {
-    vector tmp(x*rhs, y*rhs, z*rhs);
+    vector tmp(A.getX()*num, A.getY()*num, A.getZ()*num);
     return tmp;
 }
 double vector::operator*(const vector & rhs)
 {
-    return x*rhs.x + y*rhs.y + z*rhs.z;
+    return A.getX()*rhs.A.getX()+A.getY()*rhs.A.getY()+A.getZ()*rhs.A.getZ();
 }
 vector vector::operator^(const vector & rhs)
 {
-    vector tmp(y*rhs.z - z*rhs.y, z*rhs.x - x*rhs.z, x*rhs.y - y*rhs.x);
-    return tmp;
+    double x = A.getY()*rhs.getZ() - A.getZ()*rhs.getY();
+    double y = A.getZ()*rhs.getX() - A.getX()*rhs.getZ();
+    double z = A.getX()*rhs.getY() - A.getY()*rhs.getX();
+    return vector(x,y,z);
 }
 double vector::length() const
 {
-    double v = sqrt(x*x + y*y + z*z);
+    double v = sqrt(A.getX()*A.getX() + A.getY()*A.getY() + A.getZ()*A.getZ());
     return fabs(v);
 }
 bool vector::zeroV() const
 {
-    return x == y && y == z && z == 0;
+    return A.getX() == A.getY() && A.getY() == A.getZ() && A.getZ() == 0;
 }
 bool vector::parallel(const vector &rhs) const
 {
-    double tmpX = x - rhs.x;
-    double tmpY = y - rhs.y;
-    double tmpZ = z - rhs.z;
+    double tmpX = A.getX() - rhs.A.getX();
+    double tmpY = A.getY() - rhs.A.getY();
+    double tmpZ = A.getZ() - rhs.A.getZ();
     return (tmpX == tmpY && tmpY == tmpZ);
 }
 bool vector::perpendicular(const vector & rhs) const
 {
-    return (x*rhs.x + y*rhs.y + z*rhs.z == 0);
+    return (A.getX()*rhs.A.getX() + A.getY()*rhs.A.getY() + A.getZ()*rhs.A.getZ() == 0);
 }
-
 std::ostream& vector::ins(std::ostream &out) const
 {
-    return out << "Vector"<< " X: " << x <<" Y: " << y << " Z: " << z << "\n";
+    return out << "Vector"<< " X: " << A.getX() <<" Y: " << A.getY() << " Z: " << A.getZ() << "\n";
 }
 std::ostream& operator << (std::ostream& lhs, const vector & rhs)
 {
@@ -90,9 +85,10 @@ std::ostream& operator << (std::ostream& lhs, const vector & rhs)
 }
 std::istream& vector::ext(std::istream& in)
 {
-    std::cout<<"Insert x:"; in>>x;
-    std::cout<<"Insert y:"; in>>y;
-    std::cout<<"Insert z:"; in>>z;
+    double x,y,z;
+    std::cout<<"Insert x:"; in>>x; A.setX(x);
+    std::cout<<"Insert y:"; in>>y; A.setY(y);
+    std::cout<<"Insert z:"; in>>z; A.setZ(z);
     return in;
 }
 std::istream& operator>>(std::istream &lhs, vector &rhs)
