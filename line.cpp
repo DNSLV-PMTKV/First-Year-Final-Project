@@ -23,12 +23,17 @@ line& line::operator=(const line & rhs)
     }
     return *this;
 }
-vector line::normalVector(const line &rhs)
+vector line::normalVector()
 {
-    double X = b.getX() - a.getX();
-    double Y = b.getY() - a.getY();
-    double Z = b.getZ() - a.getZ();
-    return vector(X,Y,Z);
+    vector v(a,b);
+    double length = v.length();
+    if (length != 0)
+    {
+        v.setX(v.getX()/length);
+        v.setY(v.getY()/length);
+        v.setZ(v.getZ()/length);
+    }
+    return v;
 }
 double line::angle(const line & rhs)
 {
@@ -52,7 +57,7 @@ bool line::operator+(const point &rhs)
     double one = (rhs.getX() - a.getX()) / (b.getX() - a.getX());
     double two = (rhs.getY() - a.getY()) / (b.getY() - a.getY());
     double three = (rhs.getZ() - a.getZ()) / (b.getZ() - a.getZ());
-    std::cout << one << std::endl << two << std::endl << three;
+    //std::cout << one << std::endl << two << std::endl << three;
     return (one == two && two == three);
 }
 bool line::operator||(const line&rhs)
@@ -66,9 +71,20 @@ bool line::operator||(const line&rhs)
     return (tmp_x1 == tmp_x2 && tmp_y1 == tmp_y2 && tmp_z1 == tmp_z2 && tmp_x1 == tmp_y1 && tmp_y1 == tmp_z1);
 
 }
-bool line::operator&&(const line &)
+bool line::operator==(const line &rhs)
+{
+    return *this+rhs.a && *this+rhs.b;
+}
+
+bool line::operator&&(const line &rhs)
 {
 
+}
+bool line::operator|(const line &rhs)
+{
+    vector v(a,b);
+    vector u(rhs.a, rhs.b);
+    return v.perpendicular(u);
 }
 std::ostream& line::ins(std::ostream &out) const
 {

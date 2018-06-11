@@ -2,6 +2,7 @@
 #include "element.h"
 #include "point.h"
 #include "vector.h"
+#include "line.h"
 #include "functions.h"
 
 using namespace std;
@@ -171,7 +172,131 @@ int VECTOR()
         else cout << "Wrong input. Try again.\n";
     }while(cont != 'n');
 }
+
 int LINE()
 {
-
+    int choice1, choice2;
+    char cont = 'y';
+    line L;
+    cout << "How would you like to create line?\n";
+    cout << "1. By two points\n";
+    cout << "2. By vector and point\n";
+    cout << "> "; cin >> choice1;
+    if(choice1 == 1)
+    {
+        cout << "First point parameters: \n";
+        point p1; cin >> p1;
+        cout << "Second point parameters:\n";
+        point p2; cin >> p2;
+        line L1(p1, p2);
+        L = L1;
+    }
+    else if(choice1 == 2)
+    {
+        cout << "Vector parameters: \n";
+        vector v; cin >> v;
+        cout << "Point parameters: \n";
+        point p; cin >> p;
+        line L1(v,p);
+        L = L1;
+    }
+    else
+    {
+        system("CLS");
+        cout << "Wrong input! Try again." << endl;
+        LINE();
+    }
+    do
+    {
+        cout <<"Chose an option: \n";
+        cout <<"0. Print line parameters\n";
+        cout <<"1. Get normal vector\n";
+        cout <<"2. Get angle between two lines\n";
+        cout <<"3. Check if point lies on line\n";
+        cout <<"4. Check if two lines are parallel\n";
+        cout <<"5. Check if two lines match\n";
+        cout <<"6. Check if two lines intersect\n";
+        cout <<"7. Check if two lines are skew\n";
+        cout <<"8. Check if two lines are perpendicular\n";
+        cout << "> "; cin >> choice2;
+        if(choice2 == 0)
+        {
+            cout << L;
+            cout << "Would you like to choose another line option?[y/n] ";
+            cin>>cont;
+        }
+        else if(choice2 == 1)
+        {
+            cout << L.normalVector();
+            cout << "Would you like to choose another line option?[y/n] ";
+            cin>>cont;
+        }
+        else if(choice2 == 2)
+        {
+            cout << "Enter parameters for second line\n";
+            point one, two;
+            cout << "First point: \n"; cin >> one;
+            cout << "Second point: \n"; cin >> two;
+            line L2(one,two);
+            cout <<"Angle is " << L.angle(L2) << endl;
+            cout << "Would you like to choose another line option?[y/n] ";
+            cin>>cont;
+        }
+        else if(choice2 == 3)
+        {
+            point p;
+            cout << "Enter point parameters: "; cin >> p;
+            (L+p)?cout << "Point lies on the line.\n":cout <<"Point doesn't lie on the line.\n";
+            cout << "Would you like to choose another line option?[y/n] ";
+            cin>>cont;
+        }
+        else if(choice2 == 4)
+        {
+            cout << "Enter parameters for second line\n";
+            point one, two;
+            cout << "First point:\n"; cin >> one;
+            cout << "Second point:\n"; cin >> two;
+            line L2(one,two);
+            (L||L2)?cout<<"Parallel.\n":cout<<"Not parallel.\n";
+            cout << "Would you like to choose another line option?[y/n] ";
+            cin>>cont;
+        }
+        else if (choice2 == 5)
+        {
+            cout << "Enter parameters for second line\n";
+            point one, two;
+            cout << "First point:\n"; cin >> one;
+            cout << "Second point:\n"; cin >> two;
+            line L2(one,two);
+            (L==L2)?cout<<"The two lines match.\n":cout<<"The two lines do not match.\n";
+            cout << "Would you like to choose another line option?[y/n] ";
+            cin>>cont;
+        }
+        else if(choice2 == 6)
+        {
+            cout << "Buy premium to see this option.\n";
+            cout << "Would you like to choose another line option?[y/n] ";
+            cin>>cont;
+        }
+        else if(choice2 == 7)
+        {
+            cout << "Buy premium to see this option.\n";
+            cout << "Would you like to choose another line option?[y/n] ";
+            cin>>cont;
+        }
+        else if(choice2 == 8)
+        {
+            cout << "Enter parameters for second line\n";
+            point one, two;
+            cout << "First point:\n"; cin >> one;
+            cout << "Second point:\n"; cin >> two;
+            line L2(one,two);
+            (L|L2)?cout<<"Perpendicular.\n":cout<<"Not perpendicular.\n";
+            cout << "Would you like to choose another line option?[y/n] ";
+            cin>>cont;
+        }
+        else cout << "Wrong input. Try again.\n";
+    }while(cont != 'n');
 }
+
+int SEGMENT(){}

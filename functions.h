@@ -8,5 +8,5 @@
 int POINT();
 int VECTOR();
 int LINE();
-
+int SEGMENT();
 #endif //PROJECT_VECTOR_FUNCTIONS_H
