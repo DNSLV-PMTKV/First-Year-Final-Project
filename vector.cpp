@@ -1,6 +1,8 @@
 #include "vector.h"
+#include <exception>
 #include <cmath>
 #include <iostream>
+
 vector::vector():A(point(0,0,0)){}
 vector::vector(double x, double y, double z): A(point(x,y,z)){}
 vector::vector(point a, point b)
@@ -64,6 +66,25 @@ bool vector::zeroV() const
 {
     return A.getX() == A.getY() && A.getY() == A.getZ() && A.getZ() == 0;
 }
+vector vector::projection(const vector &rhs) const
+{
+    double projection = (getX()*rhs.getX() + getY()*rhs.getY() + getZ()*rhs.getZ());
+    double div = (projection/pow(rhs.length(), 2));
+    return vector(div*rhs.getX(),div*rhs.getY(),div*rhs.getZ());
+}
+vector vector::direction() const
+{
+    try
+    {
+        if(length() == 0) throw Vexception(length());
+    }
+    catch (Vexception &e)
+    {
+        std::cerr << e.what();
+        //return
+    }
+    return vector(getX()/length(),getY()/length(),getZ()/length());
+}
 bool vector::parallel(const vector &rhs) const
 {
     double tmpX = A.getX() - rhs.A.getX();
@@ -90,6 +111,7 @@ std::istream& vector::ext(std::istream& in)
     std::cout<<"Insert y:"; in>>y; A.setY(y);
     std::cout<<"Insert z:"; in>>z; A.setZ(z);
     return in;
+
 }
 std::istream& operator>>(std::istream &lhs, vector &rhs)
 {

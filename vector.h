@@ -2,6 +2,7 @@
 #define PROJECT_VECTOR_VECTOR_H
 
 #include <iostream>
+#include "Vexception.h"
 #include "point.h"
 
 class vector: public point {
@@ -29,6 +30,8 @@ public:
 
     double length() const;
     bool zeroV() const;
+    vector projection(const vector&) const;
+    vector direction() const;
     bool parallel(const vector &) const;
     bool perpendicular(const vector&) const;
 

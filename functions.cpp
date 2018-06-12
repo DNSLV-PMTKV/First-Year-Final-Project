@@ -3,6 +3,7 @@
 #include "point.h"
 #include "vector.h"
 #include "line.h"
+#include "segment.h"
 #include "functions.h"
 
 using namespace std;
@@ -40,23 +41,23 @@ int POINT()
 int VECTOR()
 {
     vector v;
-    int choice1, choice2;
+    int choice2;
     char cont = 'y';
-    cout << "How would you like to create vector?\n";
-    cout << "1. By two points\n";
-    cout << "2. By three digits\n";
-    cout << "> ";
-    cin >> choice1;
-    if(choice1 == 1)
+    int choice;
+    std::cout << "How would you like to create vector?\n";
+    std::cout << "1. By two points\n";
+    std::cout << "2. By three digits\n";
+    std::cout << "> "; cin >> choice;
+    if(choice == 1)
     {
-        cout << "First point parameters: \n";
+        std::cout << "First point parameters:\n";
         point p1; cin >> p1;
-        cout << "Second point parameters:\n";
+        std::cout << "Second point parameters:\n";
         point p2; cin >> p2;
         vector v1(p1,p2);
         v = v1;
     }
-    else if (choice1 == 2)
+    else if (choice == 2)
     {
         vector v2;
         cin >> v2;
@@ -65,8 +66,7 @@ int VECTOR()
     else
     {
         system("CLS");
-        cout << "Wrong input! Try again." << endl;
-        VECTOR();
+        std::cout << "Wrong input! Try again." << std::endl;
     }
     do
     {
@@ -86,19 +86,21 @@ int VECTOR()
         cout << "> "; cin >> choice2;
         if(choice2 == 1)
         {
-            cout << "Lenght is " << v.length() <<endl;
+            cout << "Length is " << v.length() <<endl;
             cout << "Would you like to choose another point option?[y/n] ";
             cin>>cont;
         }
         else if(choice2 == 2)
         {
-            cout << "Not available yet.\n";
+            cout << v.direction() << endl;
             cout << "Would you like to choose another vector option?[y/n] ";
             cin>>cont;
         }
         else if(choice2 == 3)
         {
-            cout << "Not available yet.\n";
+            vector v2;
+            cin >> v2;
+            cout << v.projection(v2) << endl;
             cout << "Would you like to choose another vector option?[y/n] ";
             cin>>cont;
         }
@@ -299,4 +301,50 @@ int LINE()
     }while(cont != 'n');
 }
 
-int SEGMENT(){}
+int SEGMENT()
+{
+    int choice;
+    char cont = 'y';
+    point p;
+    vector v;
+    int arr[2];
+    cout << "Enter point parameters:\n"; cin >>p;
+    cout << "Enter vector parameters:\n"; cin >> v;
+    cout << "Enter first interval:\n"; cin >> arr[0];
+    cout << "Enter second interval:\n"; cin >> arr[1];
+    segment s(p, v, arr);
+    do
+    {
+        cout <<"Chose an option: \n";
+        cout <<"0. Print segment parameters\n";
+        cout <<"1. Get segment length\n";
+        cout <<"2. Get mid point\n";
+        cout <<"3. Check if point lies on segment\n";
+        cout <<"> "; cin >> choice;
+        if(choice == 0)
+        {
+            cout << s << endl;
+            cout << "Would you like to choose another segment option?[y/n] ";
+            cin>>cont;
+        }
+        else if(choice == 1)
+        {
+            cout <<"Length: "<<s.length()<<endl;
+            cout << "Would you like to choose another segment option?[y/n] ";
+            cin>>cont;
+        }
+        else if(choice == 2)
+        {
+            cout<<"Middle point at: " << s.mid() << endl;
+            cout << "Would you like to choose another segment option?[y/n] ";
+            cin>>cont;
+        }
+        else if(choice == 3)
+        {
+            cout << "Enter point parameters:\n";
+            point p1; cin >>p1;
+            (s==p1)?cout<<"Point lies on segment.\n":cout<<"Point doesn't lie on the segment.\n";
+        }
+        else cout << "Wrong input. Try again.\n";
+    }while(cont != 'n');
+}

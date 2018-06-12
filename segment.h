@@ -8,9 +8,23 @@ class segment : public line
 {
 public:
     segment();
-    segment(point, vector);
+    segment(point, vector, int[2]);
+    segment(const segment&);
+    ~segment();
+    segment&operator=(const segment&);
+
+    double length();
+    point mid();
+
+    bool operator==(const point &);
+
+
+    virtual std::ostream& ins(std::ostream&) const;
+    friend std::ostream &operator<<(std::ostream &, const segment &);
+
 private:
-    point start, end;
+    point t1, t2;
+    int t[2];
 };
 
 
