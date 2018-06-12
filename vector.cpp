@@ -57,6 +57,17 @@ vector vector::operator^(const vector & rhs)
     double z = A.getX()*rhs.getY() - A.getY()*rhs.getX();
     return vector(x,y,z);
 }
+double  vector::operator()(const vector & lhs, const vector & rhs) const {
+    double a = getX()*lhs.getY()*rhs.getZ();
+    double b = getY()*lhs.getZ()*rhs.getX();
+    double c = getZ()*lhs.getX()*rhs.getY();
+    double first = a + b + c;
+    double d = getZ()*lhs.getY()*rhs.getX();
+    double e = getX()*lhs.getZ()*rhs.getY();
+    double f = getY()*lhs.getX()*rhs.getZ();
+    double second = d + e + f;
+    return fabs(first - second);
+}
 double vector::length() const
 {
     double v = sqrt(A.getX()*A.getX() + A.getY()*A.getY() + A.getZ()*A.getZ());
@@ -81,12 +92,21 @@ vector vector::direction() const
     catch (Vexception &e)
     {
         std::cerr << e.what();
-        //return
+        //return 1;
     }
     return vector(getX()/length(),getY()/length(),getZ()/length());
 }
 bool vector::parallel(const vector &rhs) const
 {
+    try{
+        if(length() == 0) throw Vexception(length());
+        if(rhs.length() == 0) throw Vexception(rhs.length());
+    }
+    catch (Vexception &e)
+    {
+        std::cerr << e.what();
+        return 0;
+    }
     double tmpX = A.getX() - rhs.A.getX();
     double tmpY = A.getY() - rhs.A.getY();
     double tmpZ = A.getZ() - rhs.A.getZ();
@@ -94,6 +114,15 @@ bool vector::parallel(const vector &rhs) const
 }
 bool vector::perpendicular(const vector & rhs) const
 {
+    try{
+        if(length() == 0) throw Vexception(length());
+        if(rhs.length() == 0) throw Vexception(rhs.length());
+    }
+    catch (Vexception &e)
+    {
+        std::cerr << e.what();
+        return 0;
+    }
     return (A.getX()*rhs.A.getX() + A.getY()*rhs.A.getY() + A.getZ()*rhs.A.getZ() == 0);
 }
 std::ostream& vector::ins(std::ostream &out) const

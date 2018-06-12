@@ -5,7 +5,7 @@
 #include "Vexception.h"
 #include "point.h"
 
-class vector: public point {
+class vector: public point{
 public:
     vector();
     vector(double, double, double);
@@ -27,6 +27,7 @@ public:
     vector operator*(double);
     double operator*(const vector&); //skalarno pr.
     vector operator^(const vector&); //vektorno pr.
+    double operator()(const vector&, const vector&) const; // smeseno
 
     double length() const;
     bool zeroV() const;

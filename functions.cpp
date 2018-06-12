@@ -161,7 +161,10 @@ int VECTOR()
         }
         else if(choice2 == 11)
         {
-            cout << "Not ready yet.\n";
+            vector u, k;
+            cout << "Enter parameters for u:\n"; cin >> u;
+            cout << "Enter parameters for w:\n"; cin >> k;
+            cout << "Mixed: " << v(u, k) <<endl;
             cout << "Would you like to choose another vector option?[y/n] ";
             cin>>cont;
         }
