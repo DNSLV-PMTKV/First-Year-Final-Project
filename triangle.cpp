@@ -72,3 +72,71 @@ point triangle::centroid() const
     point p(a,b,c);
     return p;
 }
+bool triangle::operator<(const point &p)
+{
+    double A = this->surface();
+
+    triangle t1(this->A,this->B, p);
+    double A1 = t1.surface();
+
+    triangle t2(this->A, p, this->C);
+    double A2 = t2.surface();
+
+    triangle t3(p, this->B, this->C);
+    double A3 = t3.surface();
+
+    double all = A1 + A2 +  A3;
+    return A == all;
+}
+bool triangle::operator>(const point &p)
+{
+    double A = this->surface();
+
+    triangle t1(this->A,this->B, p);
+    double A1 = t1.surface();
+
+    triangle t2(this->A, p, this->C);
+    double A2 = t2.surface();
+
+    triangle t3(p, this->B, this->C);
+    double A3 = t3.surface();
+
+    double all = A1 + A2 +  A3;
+    return A < all;
+}
+bool triangle::operator==(const point &p)
+{
+    line AB(A,B);
+    line BC(B,C);
+    line CA(C,A);
+    if(AB+p)
+    {
+        std::cout << "Point lies on AB.\n";
+        return true;
+    }
+    else if(BC+p)
+    {
+        std::cout << "Point lies on BC.\n";
+        return true;
+    }
+    else if(CA+p)
+    {
+        std::cout << "Point lies on AC/\n";
+        return true;
+    }
+    else
+    {
+        std::cout << "Point doesn't lie neither side.\n";
+        return false;
+    }
+}
+
+std::ostream& triangle::ins(std::ostream &out) const
+{
+    out << A << B << C;
+    return out;
+}
+std::ostream& operator << (std::ostream& lhs, const triangle & rhs)
+{
+    return rhs.ins(lhs);
+}

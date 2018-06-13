@@ -4,6 +4,7 @@
 #include "vector.h"
 #include "line.h"
 #include "segment.h"
+#include "triangle.h"
 #include "functions.h"
 
 using namespace std;
@@ -350,4 +351,86 @@ int SEGMENT()
         }
         else cout << "Wrong input. Try again.\n";
     }while(cont != 'n');
+}
+int TRIANGLE()
+{
+    int choice;
+    char cont = 'y';
+    point p1, p2, p3;
+    cout << "Enter first point coordinates:\n"; cin >> p1;
+    cout << "Enter second point coordinates:\n"; cin >> p2;
+    cout << "Enter third point coordinates:\n"; cin >> p3;
+    triangle tr(p1,p2,p3);
+    do{
+        cout <<"Chose an option: \n";
+        cout <<"0. Print triangle points coordinates.\n";
+        cout <<"1. Get type of the triangle.\n";
+        cout <<"2. Get surface.\n";
+        cout <<"3. Get perimeter.\n";
+        cout <<"4. Get centroid.\n";
+        cout <<"5. Check if point lies inside the triangle.\n";
+        cout <<"6. Check if point lies outside the triangle.\n";
+        cout <<"7. Check if point lies on side of the triangle.\n";
+        cin >> choice;
+        if(choice == 0)
+        {
+            cout << tr;
+            cout << "Would you like to choose another triangle option?[y/n] ";
+            cin>>cont;
+        }
+        else if(choice == 1)
+        {
+            tr.type();
+            cout << "Would you like to choose another triangle option?[y/n] ";
+            cin>>cont;
+        }
+        else if(choice == 2)
+        {
+            cout << "Surface = " << tr.surface() << endl;
+            cout << "Would you like to choose another triangle option?[y/n] ";
+            cin>>cont;
+
+        }
+        else if(choice == 3)
+        {
+            cout << "Perimeter = " << tr.perimeter() << endl;
+            cout << "Would you like to choose another triangle option?[y/n] ";
+            cin>>cont;
+        }
+        else if(choice == 4)
+        {
+            cout << tr.centroid() << endl;
+            cout << "Would you like to choose another triangle option?[y/n] ";
+            cin>>cont;
+        }
+        else if(choice == 5)
+        {
+            point p;
+            cout << "Enter point coordinates:\n";
+            cin >> p;
+            (tr<p)?cout<<"Lies inside.":cout<<"Doesn't lie inside.";
+            cout << "Would you like to choose another triangle option?[y/n] ";
+            cin>>cont;
+        }
+        else if(choice == 6)
+        {
+            point p;
+            cout << "Enter point coordinates:\n";
+            cin >> p;
+            (tr>p)?cout<<"Lies outside.":cout<<"Doesn't lie outside.";
+            cout << "Would you like to choose another triangle option?[y/n] ";
+            cin>>cont;
+        }
+        else if(choice == 7)
+        {
+            point p;
+            cout << "Enter point coordinates:\n";
+            cin >> p;
+            tr==p;
+            cout << "Would you like to choose another triangle option?[y/n] ";
+            cin>>cont;
+        }
+        else cout << "Wrong input. Try again.\n";
+    }while(cont != 'n');
+    return 0;
 }

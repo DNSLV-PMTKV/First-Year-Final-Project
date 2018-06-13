@@ -6,6 +6,7 @@
 #define PROJECT_VECTOR_TRIANGLE_H
 
 #include "point.h"
+#include "line.h"
 #include <iostream>
 
 class triangle : public point
@@ -22,6 +23,12 @@ public:
     double perimeter() const;
     point centroid() const;
 
+    bool operator<(const point&);
+    bool operator>(const point&);
+    bool operator==(const point&);
+
+    virtual std::ostream& ins(std::ostream&) const;
+    friend std::ostream &operator<<(std::ostream &, const triangle &);
 
 private:
     point A, B, C;
