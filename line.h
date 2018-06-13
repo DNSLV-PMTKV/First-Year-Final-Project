@@ -16,7 +16,7 @@ public:
 
     vector normalVector();
     double angle(const line&);
-
+    vector getDir();
     bool operator+(const point&); //tochka v/y prava
     bool operator||(const line&); // usporedni pravi
     bool operator==(const line&); //suvpadashti pravi

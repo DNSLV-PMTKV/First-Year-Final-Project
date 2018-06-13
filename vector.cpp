@@ -92,7 +92,6 @@ vector vector::direction() const
     catch (Vexception &e)
     {
         std::cerr << e.what();
-        //return 1;
     }
     return vector(getX()/length(),getY()/length(),getZ()/length());
 }

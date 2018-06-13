@@ -44,7 +44,6 @@ public:
 
 private:
     point A;
-    //double x,y,z;
 
 };
 

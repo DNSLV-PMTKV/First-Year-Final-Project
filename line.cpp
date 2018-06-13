@@ -27,7 +27,7 @@ vector line::normalVector()
 {
     vector v(a,b);
     double length = v.length();
-    if (length != 0)
+    if (length > 0)
     {
         v.setX(v.getX()/length);
         v.setY(v.getY()/length);
@@ -52,24 +52,32 @@ double line::angle(const line & rhs)
     angle = acos(angle);
     return angle;
 }
+vector line::getDir()
+{
+    double x = b.getX() - a.getX();
+    double y = b.getY() - a.getY();
+    double z = b.getZ() - a.getZ();
+    return vector(x,y,z);
+}
 bool line::operator+(const point &rhs)
 {
     double one = (rhs.getX() - a.getX()) / (b.getX() - a.getX());
     double two = (rhs.getY() - a.getY()) / (b.getY() - a.getY());
     double three = (rhs.getZ() - a.getZ()) / (b.getZ() - a.getZ());
-    //std::cout << one << std::endl << two << std::endl << three;
     return (one == two && two == three);
 }
 bool line::operator||(const line&rhs)
 {
     double tmp_x1 = rhs.a.getX() - a.getX();
     double tmp_x2 = rhs.b.getX() - b.getX();
+
     double tmp_y1 = rhs.a.getY() - a.getY();
     double tmp_y2 = rhs.b.getY() - b.getZ();
+
     double tmp_z1 = rhs.a.getZ() - a.getZ();
     double tmp_z2 = rhs.b.getZ() - b.getZ();
-    return (tmp_x1 == tmp_x2 && tmp_y1 == tmp_y2 && tmp_z1 == tmp_z2 && tmp_x1 == tmp_y1 && tmp_y1 == tmp_z1);
 
+    return (tmp_x1 == tmp_x2 && tmp_y1 == tmp_y2 && tmp_z1 == tmp_z2 && tmp_x1 == tmp_y1 && tmp_y1 == tmp_z1);
 }
 bool line::operator==(const line &rhs)
 {
