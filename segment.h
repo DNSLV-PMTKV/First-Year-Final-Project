@@ -14,10 +14,9 @@ public:
     segment&operator=(const segment&);
 
     double length();
-    point mid();
+    point mid() const ;
 
     bool operator==(const point &);
-
 
     virtual std::ostream& ins(std::ostream&) const;
     friend std::ostream &operator<<(std::ostream &, const segment &);

@@ -1,7 +1,3 @@
-//
-// Created by dpometkov on 13/6/18.
-//
-
 #ifndef PROJECT_VECTOR_TRIANGLE_H
 #define PROJECT_VECTOR_TRIANGLE_H
 
@@ -29,7 +25,6 @@ public:
 
     virtual std::ostream& ins(std::ostream&) const;
     friend std::ostream &operator<<(std::ostream &, const triangle &);
-
 private:
     point A, B, C;
 };

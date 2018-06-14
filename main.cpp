@@ -19,6 +19,7 @@ int main()
         cout << "3. Line\n";
         cout << "4. Segment\n";
         cout << "5. Triangle\n";
+        cout << "6. Tetrahedron\n";
         cout << "9. Exit\n";
         cout << "> "; cin >> choice;
         if(choice == 1)
@@ -48,6 +49,12 @@ int main()
         else if(choice == 5)
         {
             TRIANGLE();
+            cout << "Would you like to choose another object?[y/n]";
+            cin>>cont;
+        }
+        else if(choice == 6)
+        {
+            TETRAHEDRON();
             cout << "Would you like to choose another object?[y/n]";
             cin>>cont;
         }

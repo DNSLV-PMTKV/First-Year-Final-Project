@@ -30,9 +30,9 @@ int triangle::type() const
     double mid = std::max(std::min(AB, BC), std::min(BC, CA));
     double high = std::max(AB, std::max(BC, CA));
 
-    if(AB == BC && BC == CA) std::cout << "Equilateral triange and \n";
-    else if(AB == BC || BC == CA || CA == AB) std::cout << "Isosceles triangle and \n";
-    else std::cout << "Scalane triangle and \n.";
+    if(AB == BC && BC == CA) std::cout << "Equilateral triangle and ";
+    else if(AB == BC || BC == CA || CA == AB) std::cout << "Isosceles triangle and ";
+    else std::cout << "Scalene triangle and ";
 
     if(pow(low,2) + pow(mid,2) == pow(high, 2))
     {
@@ -50,8 +50,9 @@ double triangle::surface() const
     double AB = fabs(sqrt(pow(A.getX() - B.getX(), 2) + pow(A.getY() - B.getY(), 2) + pow(A.getZ() - B.getZ(), 2)));
     double BC = fabs(sqrt(pow(B.getX() - C.getX(), 2) + pow(B.getY() - C.getY(), 2) + pow(B.getZ() - C.getZ(), 2)));
     double CA = fabs(sqrt(pow(C.getX() - A.getX(), 2) + pow(C.getY() - A.getY(), 2) + pow(C.getZ() - A.getZ(), 2)));
+    double p = this->perimeter() / 2;
 
-    double area = sqrt(fabs(AB*AB)*fabs(CA*CA) - AB*CA)/2;
+    double area = sqrt(p*(p-AB)*(p-BC)*(p-CA));
     return area;
 
 
@@ -61,6 +62,7 @@ double triangle::perimeter() const
     double AB = fabs(sqrt(pow(A.getX() - B.getX(), 2) + pow(A.getY() - B.getY(), 2) + pow(A.getZ() - B.getZ(), 2)));
     double BC = fabs(sqrt(pow(B.getX() - C.getX(), 2) + pow(B.getY() - C.getY(), 2) + pow(B.getZ() - C.getZ(), 2)));
     double CA = fabs(sqrt(pow(C.getX() - A.getX(), 2) + pow(C.getY() - A.getY(), 2) + pow(C.getZ() - A.getZ(), 2)));
+
     double perimeter = AB+BC+CA;
     return perimeter;
 }

@@ -2,10 +2,7 @@
 #include <cmath>
 segment::segment() : t1(point()), t2(point())
 {
-    for (int i = 0; i < 2; ++i)
-    {
-        t[i] = 0;
-    }
+    for (int i = 0; i < 2; ++i) t[i] = 0;
 }
 segment::segment(point p, vector v, int arr[2])
 {
@@ -37,9 +34,9 @@ double segment::length()
     double y = t2.getY()-t1.getY();
     double z = t2.getZ()-t1.getZ();
     double dist = sqrt(x*x + y*y + z*z);
-    return dist;
+    return fabs(dist);
 }
-point segment::mid()
+point segment::mid() const
 {
     double x = (t1.getX()+t2.getX())/2;
     double y = (t1.getY()+t2.getY())/2;

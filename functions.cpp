@@ -1,10 +1,4 @@
 #include <iostream>
-#include "element.h"
-#include "point.h"
-#include "vector.h"
-#include "line.h"
-#include "segment.h"
-#include "triangle.h"
 #include "functions.h"
 
 using namespace std;
@@ -428,6 +422,83 @@ int TRIANGLE()
             cin >> p;
             tr==p;
             cout << "Would you like to choose another triangle option?[y/n] ";
+            cin>>cont;
+        }
+        else cout << "Wrong input. Try again.\n";
+    }while(cont != 'n');
+    return 0;
+}
+int TETRAHEDRON()
+{
+    int choice;
+    char cont = 'y';
+    point p1, p2, p3, p4;
+    cout << "Enter first point coordinates:\n"; cin >> p1;
+    cout << "Enter second point coordinates:\n"; cin >> p2;
+    cout << "Enter third point coordinates:\n"; cin >> p3;
+    cout << "Enter forth point coordinates:\n"; cin >> p4;
+    tetrahedron te(p1,p2,p3,p4);
+    do{
+        cout <<"Chose an option: \n";
+        cout <<"0. Print tetrahedron points coordinates.\n";
+        cout <<"1. Check if tetrahedron is regular.\n";
+        cout <<"2. Get surface.\n";
+        cout <<"3. Get volume.\n";
+        cout <<"4. Check if point lies inside the triangle.\n";
+        cout <<"5. Check if point lies outside the triangle.\n";
+        cout <<"6. Check if point lies on side of the triangle.\n";
+        cout <<"> ";
+        cin >> choice;
+        if(choice == 0)
+        {
+            cout << te;
+            cout << "Would you like to choose another tetrahedron option?[y/n] ";
+            cin>>cont;
+        }
+        else if(choice == 1)
+        {
+            (te.regular())?cout<<"Regular.":cout<<"Not regular.";
+            cout << "Would you like to choose another tetrahedron option?[y/n] ";
+            cin>>cont;
+        }
+        else if(choice == 2)
+        {
+            cout << "Surface = " << te.surface() << endl;
+            cout << "Would you like to choose another tetrahedron option?[y/n] ";
+            cin>>cont;
+
+        }
+        else if(choice == 3)
+        {
+            cout << "Volume = " << te.volume() << endl;
+            cout << "Would you like to choose another tetrahedron option?[y/n] ";
+            cin>>cont;
+        }
+        else if(choice == 4)
+        {
+            point p;
+            cout << "Enter point coordinates:\n";
+            cin >> p;
+            (te<p)?cout<<"Lies inside.":cout<<"Doesn't lie inside.";
+            cout << "Would you like to choose another tetrahedron option?[y/n] ";
+            cin>>cont;
+        }
+        else if(choice == 5)
+        {
+            point p;
+            cout << "Enter point coordinates:\n";
+            cin >> p;
+            (te>p)?cout<<"Lies outside.":cout<<"Doesn't lie outside.";
+            cout << "Would you like to choose another tetrahedron option?[y/n] ";
+            cin>>cont;
+        }
+        else if(choice == 6)
+        {
+            point p;
+            cout << "Enter point coordinates:\n";
+            cin >> p;
+            te==p;
+            cout << "Would you like to choose another tetrahedron option?[y/n] ";
             cin>>cont;
         }
         else cout << "Wrong input. Try again.\n";

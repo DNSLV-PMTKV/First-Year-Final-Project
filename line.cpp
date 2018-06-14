@@ -7,7 +7,7 @@ line::line(vector v, point A) : b(A)
     a.setY(v.getY());
     a.setZ(v.getZ());
 }
-line::line(point A, point B) : a(A), b(B) {}
+line::line(point A, point B) : a(A), b(vector(A,B)) {}
 line::~line() {}
 line::line(const line & rhs)
 {
@@ -26,28 +26,25 @@ line& line::operator=(const line & rhs)
 vector line::normalVector()
 {
     vector v(a,b);
-    double length = v.length();
-    if (length > 0)
-    {
-        v.setX(v.getX()/length);
-        v.setY(v.getY()/length);
-        v.setZ(v.getZ()/length);
-    }
-    return v;
+    return v.direction();
 }
 double line::angle(const line & rhs)
 {
     vector v1(a, b);
     vector v2(rhs.a, rhs.b);
+
     double dot = v1 * v2;
+
     double a_x = v1.getX() * v1.getX();
     double a_y = v1.getY() * v1.getY();
     double a_z = v1.getZ() * v1.getZ();
-    double a_dist = sqrt(a_x+ a_y + a_z);
+    double a_dist = sqrt(a_x + a_y + a_z);
+
     double b_x = v2.getX() * v2.getX();
     double b_y = v2.getY() * v2.getY();
     double b_z = v2.getZ() * v2.getZ();
     double b_dist = sqrt(b_x + b_y + b_z);
+
     double angle = dot/(a_dist*b_dist);
     angle = acos(angle);
     return angle;
@@ -72,7 +69,7 @@ bool line::operator||(const line&rhs)
     double tmp_x2 = rhs.b.getX() - b.getX();
 
     double tmp_y1 = rhs.a.getY() - a.getY();
-    double tmp_y2 = rhs.b.getY() - b.getZ();
+    double tmp_y2 = rhs.b.getY() - b.getY();
 
     double tmp_z1 = rhs.a.getZ() - a.getZ();
     double tmp_z2 = rhs.b.getZ() - b.getZ();
@@ -85,6 +82,10 @@ bool line::operator==(const line &rhs)
 }
 
 bool line::operator&&(const line &rhs)
+{
+
+}
+bool line::operator!=(const line &)
 {
 
 }
